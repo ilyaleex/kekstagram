@@ -1,3 +1,4 @@
+/* eslint-disable id-length */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
@@ -56,6 +57,8 @@ const author = () => {
   };
 };
 
+const posts = [];
+
 const photoDescription = () => {
   return {
     id: getRandomArrayElement(1, 25),
@@ -65,4 +68,8 @@ const photoDescription = () => {
     comments: getRandomComments(author(26)),
   };
 };
+
+for (let i = 1; i <= 25; i++) {
+  posts.push(photoDescription());
+}
 
