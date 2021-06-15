@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /* eslint-disable id-length */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
@@ -61,3 +62,5 @@ const photoDescription = () => {
 for (let i = 1; i <= 25; i++) {
   posts.push(photoDescription());
 }
+
+export {posts};
