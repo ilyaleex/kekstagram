@@ -4,8 +4,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-use-before-define */
-const AVATARS = [`img/avatar-${getRandomArrayElement(1, 6)}.svg`];
-const IMAGES = [`photos/${getRandomArrayElement(1, 25)}.jpg`];
 
 const MESSAGES = [
   'Всё отлично!',
@@ -28,7 +26,7 @@ const NAMES = [
   'Стефан',
 ];
 
-function getRandomArrayElement(min, max) {
+function getRandomElement(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -38,24 +36,24 @@ function getRandomComments(min) {
   Math.floor(Math.random() * max);
 }
 
-const author = () => {
+const author = (id) => {
   return {
-    id: getRandomArrayElement(1, 5366),
-    avatar: AVATARS,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES),
+    id: id,
+    avatar: `img/avatar-${getRandomElement(1, 6)}.svg`,
+    message: getRandomElement(MESSAGES),
+    name: getRandomElement(NAMES),
   };
 };
 
 const posts = [];
 
-const photoDescription = () => {
+const photoDescription = (id) => {
   return {
-    id: getRandomArrayElement(1, 25),
-    url: IMAGES,
+    id: id,
+    url: `photos/${id}.jpg`,
     description: 'Новая фотография',
-    likes: getRandomArrayElement(15, 200),
-    comments: getRandomComments(author(26)),
+    likes: getRandomElement(15, 200),
+    comments: getRandomComments(author[26]),
   };
 };
 
