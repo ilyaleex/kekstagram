@@ -27,4 +27,4 @@ function getRandomPositiveInteger (a, b) {
   // И в конце с помощью метода Math.floor мы округляем полученный результат,
   // потому что Math.random() генерирует только дробные числа и ноль.
   return Math.floor(result);
-};
+}
