@@ -4,9 +4,9 @@
 const thumbnail = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 
-const thumbnailsRender = (array) => {
+const thumbnailsRender = (posts) => {
   const picturesFragment = document.createDocumentFragment();
-  array.forEach(({url, likes, comments}) => {
+  posts.forEach(({url, likes, comments}) => {
     const pictureElement = thumbnail.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;

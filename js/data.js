@@ -26,14 +26,12 @@ const NAMES = [
   'Стефан',
 ];
 
+const comments = new Array(getRandomElement(1, 20)).fill(null).map(() => createComment());
+
 function getRandomElement(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomComments(min) {
-  Math.floor(Math.random() * max);
 }
 
 const author = (id) => {
@@ -53,7 +51,7 @@ const photoDescription = (id) => {
     url: `photos/${id}.jpg`,
     description: 'Новая фотография',
     likes: getRandomElement(15, 200),
-    comments: getRandomComments(author[26]),
+    comments: comments,
   };
 };
 
