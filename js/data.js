@@ -26,8 +26,6 @@ const NAMES = [
   'Стефан',
 ];
 
-const comments = new Array(getRandomElement(1, 20)).fill(null).map(() => createComment());
-
 function getRandomElement(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -46,6 +44,7 @@ const author = (id) => {
 const posts = [];
 
 const photoDescription = (id) => {
+  const comments = new Array(getRandomElement(1, 20)).fill(null).map(() => author());
   return {
     id: id,
     url: `photos/${id}.jpg`,
@@ -56,7 +55,7 @@ const photoDescription = (id) => {
 };
 
 for (let i = 1; i <= 25; i++) {
-  posts.push(photoDescription());
+  posts.push(photoDescription(i));
 }
 
 export {posts};
