@@ -1,12 +1,15 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable eol-last */
-import {isEscEvent} from './util.js';
+import { isEscEvent } from './util.js';
+
 const uploadForm = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
-const cancelUploadFile = document.querySelector('#upload-cancel');
+const cancelUpload = uploadForm.querySelector('#upload-cancel');
+const filterNone = uploadForm.querySelector('#effect-none');
 
-const hashtagsInput = document.querySelector('.text__hashtags');
-const descriptionInput = document.querySelector('.text__description');
+const hashtagsInput = uploadForm.querySelector('.text__hashtags');
+const descriptionInput = uploadForm.querySelector('.text__description');
+
 
 const popupEscKeydownHandler = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
@@ -20,6 +23,14 @@ const popupEscKeydownHandler = (evt) => {
 function closeUploadForm () {
   uploadForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  hashtagsInput.value = '';
+  descriptionInput.value = '';
+  uploadFile.value = '';
+  filterNone.checked = true;
+  descriptionInput.setCustomValidity('');
+  descriptionInput.style.borderColor = '';
+  hashtagsInput.setCustomValidity('');
+  hashtagsInput.style.borderColor = '';
 }
 
 function openUploadForm () {
@@ -27,12 +38,12 @@ function openUploadForm () {
   document.body.classList.add('modal-open');
 }
 
-uploadFile.addEventListener('click', () => {
+uploadFile.addEventListener('change', () => {
   openUploadForm();
   document.addEventListener('keydown', popupEscKeydownHandler);
 });
 
-cancelUploadFile.addEventListener('click', () => {
+cancelUpload.addEventListener('click', () => {
   closeUploadForm();
   document.removeEventListener('keydown', popupEscKeydownHandler);
 });

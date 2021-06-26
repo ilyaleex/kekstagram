@@ -5,5 +5,6 @@ import {thumbnailsRender} from './thumbnails.js';
 import './form.js';
 import './hashtags-validation.js';
 import './description-validation.js';
+import './big-picture.js';
 
 thumbnailsRender(posts);

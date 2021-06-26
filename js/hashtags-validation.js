@@ -1,6 +1,6 @@
+const MAX_HASHTAGS_AMOUNT = 5;
 const hashtagsInput = document.querySelector('.text__hashtags');
 const hashtagValidation = /^#[A-za-zА-Яа-я0-9]{1,19}$/;
-const MAX_HASHTAGS_AMOUNT = 5;
 
 hashtagsInput.addEventListener('input', () => {
   if (hashtagsInput.value !== '') {
@@ -12,16 +12,19 @@ hashtagsInput.addEventListener('input', () => {
         hashtagsInput.style.borderColor = 'red';
       } else if (hashtags.length !== hashtagsSet.size) {
         hashtagsInput.setCustomValidity('Хэштеги не должны повторяться');
-        hashtagsInput.style.bordColor = 'red';
+        hashtagsInput.style.borderColor = 'red'; //не работает
       } else {
         hashtagsInput.setCustomValidity('');
-        hashtagsInput.style.borderColor = 'green';
+        hashtagsInput.style.borderColor = '';
       }
       hashtagsInput.reportValidity();
     });
     if (hashtags.length > MAX_HASHTAGS_AMOUNT) {
       hashtagsInput.setCustomValidity(`Количество хэштегов не может быть больше ${MAX_HASHTAGS_AMOUNT}`);
     }
+  } else {
+    hashtagsInput.setCustomValidity('');
+    hashtagsInput.style.borderColor = '';
   }
 });
 

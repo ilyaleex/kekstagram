@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable eol-last */
-
 const thumbnail = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 
