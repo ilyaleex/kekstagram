@@ -1,14 +1,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable eol-last */
-import { isEscEvent } from './util.js';
+import {isEscEvent} from './util.js';
+import {imgPreviewPic, effectLevelSlider, effectNone} from './effects.js';
 
 const uploadForm = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
 const cancelUpload = uploadForm.querySelector('#upload-cancel');
-const filterNone = uploadForm.querySelector('#effect-none');
-
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
+const scaleInput = document.querySelector('.scale__control--value');
 
 
 const popupEscKeydownHandler = (evt) => {
@@ -26,11 +26,14 @@ function closeUploadForm () {
   hashtagsInput.value = '';
   descriptionInput.value = '';
   uploadFile.value = '';
-  filterNone.checked = true;
+  effectNone.checked = true;
+  imgPreviewPic.style.filter = 'none';
+  effectLevelSlider.classList.add('hidden');
   descriptionInput.setCustomValidity('');
   descriptionInput.style.borderColor = '';
   hashtagsInput.setCustomValidity('');
   hashtagsInput.style.borderColor = '';
+  scaleInput.value = '100%';
 }
 
 function openUploadForm () {
@@ -47,3 +50,5 @@ cancelUpload.addEventListener('click', () => {
   closeUploadForm();
   document.removeEventListener('keydown', popupEscKeydownHandler);
 });
+
+export {popupEscKeydownHandler};
