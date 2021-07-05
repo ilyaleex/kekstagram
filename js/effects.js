@@ -1,18 +1,12 @@
-/* eslint-disable no-unused-vars */
 const imgPreview = document.querySelector('.img-upload__preview');
 const imgPreviewPic = imgPreview.querySelector('img');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
-
-const effectNone = document.querySelector('#effect-none');
-const effectChrome = document.querySelector('#effect-chrome');
-const effectSepia = document.querySelector('#effect-sepia');
-const effectMarvin = document.querySelector('#effect-marvin');
-const effectPhobos = document.querySelector('#effect-phobos');
-const effectHeat = document.querySelector('#effect-heat');
+const effectsList = document.querySelector('.effects__list');
 
 effectLevelSlider.classList.add('hidden');
 effectLevelValue.value = 100;
+const effectClasses = imgPreviewPic.className.split(' ').filter((effectClass) => !effectClass.startsWith('effects__preview'));
 
 noUiSlider.create(effectLevelSlider, {
   range: {
@@ -33,15 +27,11 @@ noUiSlider.create(effectLevelSlider, {
   },
 });
 
-const effectType = (effectName, effectUnit) => {
-  effectLevelSlider.noUiSlider.on('update', (values, handle) => {
-    effectLevelValue.value = values[handle];
-    const filterStyle = `${effectName}(${effectLevelValue.value}${effectUnit})`;
-    imgPreviewPic.style.filter = filterStyle;
-  });
-};
+const effectParameters = (currentClass, minRangeValue, maxRangeValue, sliderStep, effectName, effectUnit) => {
+  effectLevelSlider.classList.remove('hidden');
+  imgPreviewPic.className = effectClasses.join(' ').trim();
+  imgPreview.classList.add(currentClass);
 
-const effectValues = (minRangeValue, maxRangeValue, sliderStep) => {
   effectLevelSlider.noUiSlider.updateOptions({
     range: {
       min: minRangeValue,
@@ -50,50 +40,45 @@ const effectValues = (minRangeValue, maxRangeValue, sliderStep) => {
     start: maxRangeValue,
     step: sliderStep,
   });
+
+  effectLevelSlider.noUiSlider.on('update', (values, handle) => {
+    effectLevelValue.value = values[handle];
+    const filterStyle = `${effectName}(${effectLevelValue.value}${effectUnit})`;
+    imgPreviewPic.style.filter = filterStyle;
+  });
 };
 
-const effectClasses = imgPreviewPic.className.split(' ').filter((effectClass) => !effectClass.startsWith('effects__preview'));
-
-const addEffectClass = (currentClass) => {
-  effectLevelSlider.classList.remove('hidden');
-  imgPreviewPic.className = effectClasses.join(' ').trim();
-  imgPreview.classList.add(currentClass);
+const setEffect = (effect) => {
+  switch (effect) {
+    case 'none':
+      effectLevelSlider.classList.add('hidden');
+      imgPreviewPic.className = effectClasses.join(' ').trim();
+      imgPreviewPic.style.filter = 'none';
+      break;
+    case 'chrome':
+      effectParameters('.effect__preview--chrome', 0, 1, 0.1, 'grayscale', '');
+      break;
+    case 'sepia':
+      effectParameters('.effect__preview--sepia', 0, 1, 0.1, 'sepia', '');
+      break;
+    case 'marvin':
+      effectParameters('.effect__preview--marvin', 0, 100, 1, 'invert', '%');
+      break;
+    case 'phobos':
+      effectParameters('.effect__preview--phobos', 0, 3, 0.1, 'blur', 'px');
+      break;
+    case 'heat':
+      effectParameters('.effect__preview--heat', 1, 3, 0.1, 'brightness', '');
+      break;
+  }
 };
 
-effectNone.addEventListener('click', () => {
-  effectLevelSlider.classList.add('hidden');
-  imgPreviewPic.className = effectClasses.join(' ').trim();
-  imgPreviewPic.style.filter = 'none';
-});
+const setEffectHandler = (evt) => {
+  if (evt.target.matches('.effects__radio')) {
+    setEffect(evt.target.value);
+  }
+};
 
-effectChrome.addEventListener('click', () => {
-  addEffectClass('.effect__preview--chrome');
-  effectValues(0, 1, 0.1);
-  effectType('grayscle', '');
-});
+effectsList.addEventListener('change', setEffectHandler);
 
-effectSepia.addEventListener('click', () => {
-  addEffectClass('.effect__preview--sepia');
-  effectValues(0, 1, 0.1);
-  effectType('sepia', '');
-});
-
-effectMarvin.addEventListener('click', () => {
-  addEffectClass('.effect__preview--marvin');
-  effectValues(0, 100, 1);
-  effectType('invert', '%');
-});
-
-effectPhobos.addEventListener('click', () => {
-  addEffectClass('.effect__preview--phobos');
-  effectValues(0, 3, 0.1);
-  effectType('blur', 'px');
-});
-
-effectHeat.addEventListener('click', () => {
-  addEffectClass('.effect__preview--heat');
-  effectValues(1, 3, 0.1);
-  effectType('brightness', '');
-});
-
-export {imgPreviewPic, effectLevelSlider, effectNone};
+export {imgPreviewPic, effectLevelSlider};

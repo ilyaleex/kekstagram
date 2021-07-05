@@ -1,7 +1,8 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable eol-last */
 import {isEscEvent} from './util.js';
-import {imgPreviewPic, effectLevelSlider, effectNone} from './effects.js';
+import {imgPreviewPic, effectLevelSlider} from './effects.js';
+import {imgPreview} from './scale.js';
 
 const uploadForm = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
@@ -9,7 +10,7 @@ const cancelUpload = uploadForm.querySelector('#upload-cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
 const scaleInput = document.querySelector('.scale__control--value');
-
+const effectNone = document.querySelector('#effect-none');
 
 const popupEscKeydownHandler = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
@@ -34,6 +35,8 @@ function closeUploadForm () {
   hashtagsInput.setCustomValidity('');
   hashtagsInput.style.borderColor = '';
   scaleInput.value = '100%';
+  const transformValue = `scale(${100 * 0.01})`;
+  imgPreview.style.transform = transformValue;
 }
 
 function openUploadForm () {
