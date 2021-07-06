@@ -1,7 +1,6 @@
 /* eslint-disable no-use-before-define */
-/* eslint-disable eol-last */
 import {isEscEvent} from './util.js';
-import {imgPreviewPic, effectLevelSlider} from './effects.js';
+import {imgPreviewPic, effectSlider} from './effects.js';
 import {imgPreview} from './scale.js';
 
 const uploadForm = document.querySelector('.img-upload__overlay');
@@ -29,7 +28,7 @@ function closeUploadForm () {
   uploadFile.value = '';
   effectNone.checked = true;
   imgPreviewPic.style.filter = 'none';
-  effectLevelSlider.classList.add('hidden');
+  effectSlider.classList.add('hidden');
   descriptionInput.setCustomValidity('');
   descriptionInput.style.borderColor = '';
   hashtagsInput.setCustomValidity('');

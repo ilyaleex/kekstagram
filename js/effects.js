@@ -3,8 +3,9 @@ const imgPreviewPic = imgPreview.querySelector('img');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectsList = document.querySelector('.effects__list');
+const effectSlider = document.querySelector('.img-upload__effect-level');
 
-effectLevelSlider.classList.add('hidden');
+effectSlider.classList.add('hidden');
 effectLevelValue.value = 100;
 const effectClasses = imgPreviewPic.className.split(' ').filter((effectClass) => !effectClass.startsWith('effects__preview'));
 
@@ -28,7 +29,7 @@ noUiSlider.create(effectLevelSlider, {
 });
 
 const effectParameters = (currentClass, minRangeValue, maxRangeValue, sliderStep, effectName, effectUnit) => {
-  effectLevelSlider.classList.remove('hidden');
+  effectSlider.classList.remove('hidden');
   imgPreviewPic.className = effectClasses.join(' ').trim();
   imgPreview.classList.add(currentClass);
 
@@ -51,7 +52,7 @@ const effectParameters = (currentClass, minRangeValue, maxRangeValue, sliderStep
 const setEffect = (effect) => {
   switch (effect) {
     case 'none':
-      effectLevelSlider.classList.add('hidden');
+      effectSlider.classList.add('hidden');
       imgPreviewPic.className = effectClasses.join(' ').trim();
       imgPreviewPic.style.filter = 'none';
       break;
@@ -81,4 +82,4 @@ const setEffectHandler = (evt) => {
 
 effectsList.addEventListener('change', setEffectHandler);
 
-export {imgPreviewPic, effectLevelSlider};
+export {imgPreviewPic, effectSlider};
