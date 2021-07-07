@@ -6,5 +6,7 @@ import './form.js';
 import './hashtags-validation.js';
 import './description-validation.js';
 import './big-picture.js';
+import './scale.js';
+import './effects.js';
 
 thumbnailsRender(posts);

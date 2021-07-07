@@ -1,15 +1,14 @@
 /* eslint-disable no-use-before-define */
-/* eslint-disable eol-last */
-import { isEscEvent } from './util.js';
+import {isEscEvent} from './util.js';
+import {effectSlider} from './effects.js';
+import {imgPreview, setImgScale} from './scale.js';
 
-const uploadForm = document.querySelector('.img-upload__overlay');
+const uploadForm = document.querySelector('.img-upload__form');
+const imgEditing = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
-const cancelUpload = uploadForm.querySelector('#upload-cancel');
-const filterNone = uploadForm.querySelector('#effect-none');
-
-const hashtagsInput = uploadForm.querySelector('.text__hashtags');
-const descriptionInput = uploadForm.querySelector('.text__description');
-
+const cancelUpload = imgEditing.querySelector('#upload-cancel');
+const hashtagsInput = imgEditing.querySelector('.text__hashtags');
+const descriptionInput = imgEditing.querySelector('.text__description');
 
 const popupEscKeydownHandler = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
@@ -21,20 +20,18 @@ const popupEscKeydownHandler = (evt) => {
 };
 
 function closeUploadForm () {
-  uploadForm.classList.add('hidden');
+  uploadForm.reset();
+  imgEditing.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  hashtagsInput.value = '';
-  descriptionInput.value = '';
-  uploadFile.value = '';
-  filterNone.checked = true;
-  descriptionInput.setCustomValidity('');
+  imgPreview.style.filter = 'none';
+  effectSlider.classList.add('hidden');
   descriptionInput.style.borderColor = '';
-  hashtagsInput.setCustomValidity('');
   hashtagsInput.style.borderColor = '';
+  setImgScale(100);
 }
 
 function openUploadForm () {
-  uploadForm.classList.remove('hidden');
+  imgEditing.classList.remove('hidden');
   document.body.classList.add('modal-open');
 }
 
@@ -47,3 +44,5 @@ cancelUpload.addEventListener('click', () => {
   closeUploadForm();
   document.removeEventListener('keydown', popupEscKeydownHandler);
 });
+
+export {popupEscKeydownHandler};
