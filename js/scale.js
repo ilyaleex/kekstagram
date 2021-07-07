@@ -2,29 +2,31 @@ const SCALE_STEP = 25;
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
 const scaleInput = document.querySelector('.scale__control--value');
-const imgUploadPreview = document.querySelector('.img-upload__preview');
-const imgPreview = imgUploadPreview.querySelector('img');
+const imgPreview = document.querySelector('.img-upload__preview img');
 
+let currentScale = 100;
 
-let scaleInputValue = 100;
-scaleInput.value = `${scaleInputValue}%`;
+const setImgScale = (newScale) => {
+  scaleInput.value = `${newScale}%`;
+  imgPreview.style.transform = `scale(${newScale / 100})`;
+  currentScale = newScale;
+};
 
-const rescaleImg = (evt, value) => {
-  if (evt) {
-    scaleInputValue = value;
-    scaleInput.value = `${scaleInputValue}%`;
-
-    const transformValue = `scale(${scaleInputValue * 0.01})`;
-    imgPreview.style.transform = transformValue;
+const scaleSmallerHandler = () => {
+  if (currentScale > SCALE_STEP) {
+    currentScale -= SCALE_STEP;
+    setImgScale(currentScale);
   }
 };
 
-scaleSmaller.addEventListener('click', () => {
-  rescaleImg(scaleInputValue > SCALE_STEP, scaleInputValue - SCALE_STEP);
-});
+const scaleBiggerHandler = () => {
+  if (currentScale < 100) {
+    currentScale += SCALE_STEP;
+    setImgScale(currentScale);
+  }
+};
 
-scaleBigger.addEventListener('click', () => {
-  rescaleImg(scaleInputValue < 100, scaleInputValue + SCALE_STEP);
-});
+scaleSmaller.addEventListener('click', scaleSmallerHandler);
+scaleBigger.addEventListener('click', scaleBiggerHandler);
 
-export {scaleInputValue, imgPreview};
+export {imgPreview, setImgScale};

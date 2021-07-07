@@ -1,15 +1,14 @@
 /* eslint-disable no-use-before-define */
 import {isEscEvent} from './util.js';
-import {imgPreviewPic, effectSlider} from './effects.js';
-import {imgPreview} from './scale.js';
+import {effectSlider} from './effects.js';
+import {imgPreview, setImgScale} from './scale.js';
 
-const uploadForm = document.querySelector('.img-upload__overlay');
+const uploadForm = document.querySelector('.img-upload__form');
+const imgEditing = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
-const cancelUpload = uploadForm.querySelector('#upload-cancel');
-const hashtagsInput = uploadForm.querySelector('.text__hashtags');
-const descriptionInput = uploadForm.querySelector('.text__description');
-const scaleInput = document.querySelector('.scale__control--value');
-const effectNone = document.querySelector('#effect-none');
+const cancelUpload = imgEditing.querySelector('#upload-cancel');
+const hashtagsInput = imgEditing.querySelector('.text__hashtags');
+const descriptionInput = imgEditing.querySelector('.text__description');
 
 const popupEscKeydownHandler = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
@@ -21,25 +20,18 @@ const popupEscKeydownHandler = (evt) => {
 };
 
 function closeUploadForm () {
-  uploadForm.classList.add('hidden');
+  uploadForm.reset();
+  imgEditing.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  hashtagsInput.value = '';
-  descriptionInput.value = '';
-  uploadFile.value = '';
-  effectNone.checked = true;
-  imgPreviewPic.style.filter = 'none';
+  imgPreview.style.filter = 'none';
   effectSlider.classList.add('hidden');
-  descriptionInput.setCustomValidity('');
   descriptionInput.style.borderColor = '';
-  hashtagsInput.setCustomValidity('');
   hashtagsInput.style.borderColor = '';
-  scaleInput.value = '100%';
-  const transformValue = `scale(${100 * 0.01})`;
-  imgPreview.style.transform = transformValue;
+  setImgScale(100);
 }
 
 function openUploadForm () {
-  uploadForm.classList.remove('hidden');
+  imgEditing.classList.remove('hidden');
   document.body.classList.add('modal-open');
 }
 
