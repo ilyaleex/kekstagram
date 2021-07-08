@@ -45,4 +45,4 @@ cancelUpload.addEventListener('click', () => {
   document.removeEventListener('keydown', popupEscKeydownHandler);
 });
 
-export {popupEscKeydownHandler};
+export {popupEscKeydownHandler, closeUploadForm};
