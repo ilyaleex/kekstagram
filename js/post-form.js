@@ -1,6 +1,7 @@
 import {onFormSuccessSend} from './success-form.js';
 import {onFormErrorSend} from './form-error.js';
 
+const URL = 'https://23.javascript.pages.academy/kekstagram';
 const uploadImageForm = document.querySelector('.img-upload__form');
 
 const setUserFormSubmit = (onSuccess, onError) => {
@@ -10,7 +11,7 @@ const setUserFormSubmit = (onSuccess, onError) => {
     const formData = new FormData(evt.target);
 
     fetch(
-      'https://23.javascript.pages.academy/kekstagram',
+      URL,
       {
         method: 'POST',
         body: formData,

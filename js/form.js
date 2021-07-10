@@ -45,4 +45,87 @@ cancelUpload.addEventListener('click', () => {
   document.removeEventListener('keydown', popupEscKeydownHandler);
 });
 
-export {popupEscKeydownHandler, closeUploadForm};
+const removeListenerSuccessMessage = () => {
+  const successModal = document.querySelector('.success');
+  const successModalButton = document.querySelector('.success__button');
+
+  successModalButton.removeEventListener('click', onButtonModalSuccessClick);
+  document.removeEventListener('keydown', onKeyToSuccessModalClick);
+  successModal.removeEventListener('click', onModalSuccessOutsideClick);
+};
+
+function onButtonModalSuccessClick() {
+  const successModal = document.querySelector('.success');
+  removeListenerSuccessMessage();
+  successModal.remove();
+}
+
+function onKeyToSuccessModalClick(evt) {
+  if (isEscEvent(evt)) {
+    const successModal = document.querySelector('.success');
+    removeListenerSuccessMessage();
+    successModal.remove();
+  }
+}
+
+function onModalSuccessOutsideClick(evt) {
+  const successInnerTemplate = evt.currentTarget.querySelector('.success__inner');
+  const isClickInside = successInnerTemplate.contains(evt.target);
+
+  if (!isClickInside) {
+    removeListenerSuccessMessage();
+    evt.currentTarget.remove();
+  }
+}
+
+const closeSuccessMessageModal = () => {
+  const successModal = document.querySelector('.success');
+  const successModalButton = document.querySelector('.success__button');
+
+  successModalButton.addEventListener('click', onButtonModalSuccessClick);
+  document.addEventListener('keydown', onKeyToSuccessModalClick);
+  successModal.addEventListener('click', onModalSuccessOutsideClick);
+};
+
+const removeListenerErrorMessage = () => {
+  const errorModal = document.querySelector('.error');
+  const errorModalButton = document.querySelector('.error__button');
+
+  errorModalButton.removeEventListener('click', onButtonModalErrorClick);
+  document.removeEventListener('keydown', onKeyToErrorModalClick);
+  errorModal.removeEventListener('click', onModalErrorOutsideClick);
+};
+
+function onButtonModalErrorClick() {
+  const errorModal = document.querySelector('.error');
+  removeListenerErrorMessage();
+  errorModal.remove();
+}
+
+function onKeyToErrorModalClick(evt) {
+  if (isEscEvent(evt)) {
+    const errorModal = document.querySelector('.error');
+    removeListenerErrorMessage();
+    errorModal.remove();
+  }
+}
+
+function onModalErrorOutsideClick(evt) {
+  const errorInnerTemplate = evt.currentTarget.querySelector('.error__inner');
+  const isClickInside = errorInnerTemplate.contains(evt.target);
+
+  if (!isClickInside) {
+    removeListenerErrorMessage();
+    evt.currentTarget.remove();
+  }
+}
+
+const closeErrorMessageModal = () => {
+  const errorModal = document.querySelector('.error');
+  const errorModalButton = document.querySelector('.error__button');
+  errorModalButton.addEventListener('click', onButtonModalErrorClick);
+  document.addEventListener('keydown', onKeyToErrorModalClick);
+  errorModal.addEventListener('click', onModalErrorOutsideClick);
+};
+
+export {closeUploadForm, closeSuccessMessageModal, closeErrorMessageModal};
