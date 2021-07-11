@@ -28,7 +28,7 @@ function closeUploadForm () {
   descriptionInput.style.borderColor = '';
   hashtagsInput.style.borderColor = '';
   setImgScale(100);
-  popupEscKeydownHandler();
+  document.removeEventListener('keydown', popupEscKeydownHandler);
 }
 
 function openUploadForm () {
@@ -43,7 +43,6 @@ uploadFile.addEventListener('change', () => {
 
 cancelUpload.addEventListener('click', () => {
   closeUploadForm();
-  document.removeEventListener('keydown', popupEscKeydownHandler);
 });
 
 const removeListenerSuccessMessage = () => {
