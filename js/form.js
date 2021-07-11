@@ -28,6 +28,7 @@ function closeUploadForm () {
   descriptionInput.style.borderColor = '';
   hashtagsInput.style.borderColor = '';
   setImgScale(100);
+  popupEscKeydownHandler();
 }
 
 function openUploadForm () {
