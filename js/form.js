@@ -2,6 +2,7 @@
 import {isEscEvent} from './util.js';
 import {effectSlider} from './effects.js';
 import {imgPreview, setImgScale} from './scale.js';
+import {closeButton} from './big-picture.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const imgEditing = document.querySelector('.img-upload__overlay');
@@ -29,6 +30,8 @@ function closeUploadForm () {
   hashtagsInput.style.borderColor = '';
   setImgScale(100);
   document.removeEventListener('keydown', popupEscKeydownHandler);
+  closeButton.removeEventListener('click', popupEscKeydownHandler);
+  closeButton.removeEventListener('click', closeUploadForm);
 }
 
 function openUploadForm () {
@@ -128,4 +131,4 @@ const closeErrorMessageModal = () => {
   errorModal.addEventListener('click', onModalErrorOutsideClick);
 };
 
-export {closeUploadForm, closeSuccessMessageModal, closeErrorMessageModal};
+export {closeUploadForm, closeSuccessMessageModal, closeErrorMessageModal, popupEscKeydownHandler};

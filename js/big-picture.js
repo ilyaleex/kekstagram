@@ -1,104 +1,95 @@
-/* eslint-disable no-undef */
-import {thumbnailsRender} from './thumbnails.js';
+/* eslint-disable id-length */
+import {pictures} from './thumbnails.js';
+import {closeUploadForm, popupEscKeydownHandler} from './form.js';
 
 const COMMENTS_STEP = 5;
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img');
-const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
-const likesCount = bigPicture.querySelector('.likes-count');
-const commentsCount = bigPicture.querySelector('.comments-count');
-const currentCommentsCount = bigPicture.querySelector('.current-comments-count');
-const postComments = bigPicture.querySelector('.social__comments');
-const postDescription = bigPicture.querySelector('.social__caption');
+const closeButton = bigPicture.querySelector('.big-picture__cancel');
+const bigPictureImage = bigPicture.querySelector('img');
+const bigPictureLikesField = bigPicture.querySelector('.likes-count');
+const bigPictureCommentsField = bigPicture.querySelector('.comments-count');
+const bigPictureCommentsCount = bigPicture.querySelector('.current-comments-count');
+const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
-const pictures = document.querySelectorAll('.picture');
+const commentsList = bigPicture.querySelector('.social__comments');
 const commentFragment = document.createDocumentFragment();
 
-const commentInput = bigPicture.querySelector('.social__footer-text');
-const uploadFile = document.querySelector('#upload-file');
-
-const onCloseButtonClick = () => {
-  UploadForm.classList.add('hidden');
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  commentInput.value = '';
-  uploadFile.value = '';
-};
-
-const addPhotoListClickHandler = (post, {url, likes, comments, description}) => {
-  const onPictureClick = () => {
+const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}) => {
+  const onPictureClick = (evt) => {
+    evt.preventDefault();
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    bigPictureImg.img.src = url;
-    likesCount.textContent = likes;
-    commentsCount.textContent = comments.length;
-    postDescription.textContent = description;
+    bigPictureImage.src = url;
+    bigPictureLikesField.textContent = likes;
+    bigPictureCommentsField.textContent = comments.length;
+    bigPictureDescription.textContent = description;
+    commentsList.innerHTML = '';
 
-    postComments.innerHTML = '';
-
-    const addComments = (photoComments) => {
+    const addCommentsToList = (photoComments) => {
       photoComments.forEach(({avatar, name, message}) => {
-        const author = document.createElement('li');
-        const authorImg = document.createElement('img');
-        const authorComment = document.createElement('p');
-
-        author.classList.add('social__comment');
-        authorImg.classList.add('social__picture');
-        authorComment.classList.add('social__text');
-        authorImg.src = avatar;
-        authorImg.alt = name;
-        authorImg.width = 35;
-        authorImg.height = 35;
-
-
-        authorComment.textContent = message;
-        author.appendChild(authorImg);
-        author.appendChild(authorComment);
-        commentFragment.appendChild(author);
+        const commentBlock = document.createElement('li');
+        const commentPicture = document.createElement('img');
+        const commentText = document.createElement('p');
+        commentBlock.classList.add('social__comment');
+        commentPicture.classList.add('social__picture');
+        commentText.classList.add('social__text');
+        commentPicture.src = avatar;
+        commentPicture.alt = name;
+        commentPicture.width = 35;
+        commentPicture.height = 35;
+        commentText.textContent = message;
+        commentBlock.appendChild(commentPicture);
+        commentBlock.appendChild(commentText);
+        commentFragment.appendChild(commentBlock);
       });
 
-      postComments.appendChild(commentFragment);
+      commentsList.appendChild(commentFragment);
     };
     let commentsCounter = 0;
-    let commentsCounterIndex = COMMENTS_STEP;
+    let commentsCounterInex = 5;
 
-    const slicedComments = comments.slice(commentsCounter, commentsCounterIndex);
-    addComments(slicedComments);
+    const slicedComments = comments.slice(commentsCounter, commentsCounterInex);
+    addCommentsToList(slicedComments);
 
     commentsLoader.addEventListener('click', () => {
       commentsCounter += COMMENTS_STEP;
-      commentsCounterIndex += COMMENTS_STEP;
+      commentsCounterInex += COMMENTS_STEP;
 
-      const slicedAdditionalComments = comments.slice(commentsCounter, commentsCounterIndex);
-      addComments(slicedAdditionalComments);
+      const slicedAdditionalComments = comments.slice(commentsCounter, commentsCounterInex);
+      addCommentsToList(slicedAdditionalComments);
 
-      currentCommentsCount.textContent = postComments.children.length;
+      bigPictureCommentsCount.textContent = commentsList.children.length;
 
-      if (comments.length === postComments.children.length) {
+      if(comments.length === commentsList.children.length) {
         commentsLoader.classList.add('hidden');
       }
     });
 
-    if (comments.length > COMMENTS_STEP) {
+    if(comments.length > COMMENTS_STEP) {
       socialCommentCount.classList.remove('hidden');
       commentsLoader.classList.remove('hidden');
 
-      currentCommentsCount.textContent = COMMENTS_STEP;
+      bigPictureCommentsCount.textContent = COMMENTS_STEP;
     } else {
       socialCommentCount.classList.add('hidden');
       commentsLoader.classList.add('hidden');
     }
 
-    bigPictureCancel.addEventListener('click', onCloseButtonClick);
+    document.addEventListener('keydown', popupEscKeydownHandler);
+    closeButton.addEventListener('click', closeUploadForm);
   };
 
-  bigPictureCancel.removeEventListener('click', onCloseButtonClick);
-  post.addEventListener('click', onPictureClick);
+  photoItem.addEventListener('click', onPictureClick);
 };
 
-// eslint-disable-next-line id-length
-pictures.forEach((photo, i) => {
-  addPhotoListClickHandler(photo, thumbnailsRender[i]);
-});
+const addPostsComments = (userPhotoList) => {
+  const photos = pictures.querySelectorAll('.picture');
+
+  photos.forEach((photo, i) => {
+    addPhotoListClickHandler(photo, userPhotoList[i]);
+  });
+};
+
+export {addPostsComments, closeButton};

@@ -1,3 +1,5 @@
+import {imgFilter} from './filter.js';
+
 const thumbnail = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 
@@ -11,6 +13,7 @@ const thumbnailsRender = (posts) => {
     picturesFragment.appendChild(pictureElement);
   });
   pictures.appendChild(picturesFragment);
+  imgFilter.classList.remove('img-filters--inactive');
 };
 
-export {thumbnailsRender};
+export {thumbnailsRender, pictures};
