@@ -4,7 +4,7 @@ import {isEscEvent} from './util.js';
 const COMMENTS_STEP = 5;
 
 const bigPicture = document.querySelector('.big-picture');
-const closeButton = bigPicture.querySelector('.big-picture__cancel');
+const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImage = bigPicture.querySelector('img');
 const bigPictureLikesField = bigPicture.querySelector('.likes-count');
 const bigPictureCommentsField = bigPicture.querySelector('.comments-count');
@@ -90,7 +90,7 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
       commentsLoader.classList.add('hidden');
     }
     document.addEventListener('keydown', popupEscKeydownHandler);
-    closeButton.addEventListener('click', closePhoto);
+    bigPictureClose.addEventListener('click', closePhoto);
   };
 
   photoItem.addEventListener('click', onPictureClick);
