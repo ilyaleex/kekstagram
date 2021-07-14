@@ -7,14 +7,14 @@ const RERENDER_DELAY = 500;
 const RANDOM_PHOTOS_LENGTH = 10;
 
 const picturesContainer = document.querySelector('.pictures');
-const imgFilter = document.querySelector('.img-filters');
-const imgFilterButtons = imgFilter.querySelectorAll('.img-filters__button');
-const imgFilterDefault = imgFilter.querySelector('#filter-default');
-const imgFilterRandom = imgFilter.querySelector('#filter-random');
-const imgFilterDiscussed = imgFilter.querySelector('#filter-discussed');
+const imageFilter = document.querySelector('.img-filters');
+const imageFilterButtons = imageFilter.querySelectorAll('.img-filters__button');
+const imageFilterDefault = imageFilter.querySelector('#filter-default');
+const imageFilterRandom = imageFilter.querySelector('#filter-random');
+const imageFilterDiscussed = imageFilter.querySelector('#filter-discussed');
 
 const applyFilterImages = (filterButton) => {
-  Array.from(imgFilterButtons).forEach((imgFilterButton) => {
+  Array.from(imageFilterButtons).forEach((imgFilterButton) => {
     imgFilterButton.classList.remove('img-filters__button--active');
   });
   filterButton.classList.add('img-filters__button--active');
@@ -35,15 +35,15 @@ const renderFilteredPhotoList = (debounce(
 ));
 
 const renderPhotoFilter = (userPhotos) => {
-  imgFilterDefault.addEventListener('click', () => {
-    applyFilterImages(imgFilterDefault);
+  imageFilterDefault.addEventListener('click', () => {
+    applyFilterImages(imageFilterDefault);
     const defaultOrderPhotos = userPhotos.sort(sortByField('id'));
 
     renderFilteredPhotoList(defaultOrderPhotos);
   });
 
-  imgFilterRandom.addEventListener('click', () => {
-    applyFilterImages(imgFilterRandom);
+  imageFilterRandom.addEventListener('click', () => {
+    applyFilterImages(imageFilterRandom);
 
     shuffle(userPhotos);
     const slicedRandomPhotos = userPhotos.slice(0, RANDOM_PHOTOS_LENGTH);
@@ -51,8 +51,8 @@ const renderPhotoFilter = (userPhotos) => {
     renderFilteredPhotoList(slicedRandomPhotos);
   });
 
-  imgFilterDiscussed.addEventListener('click', () => {
-    applyFilterImages(imgFilterDiscussed);
+  imageFilterDiscussed.addEventListener('click', () => {
+    applyFilterImages(imageFilterDiscussed);
     const disscusedOrderPhotosReverce = userPhotos.sort(sortByField('comments'));
     const disscusedOrderPhotos = disscusedOrderPhotosReverce.reverse();
 
@@ -60,4 +60,4 @@ const renderPhotoFilter = (userPhotos) => {
   });
 };
 
-export {renderPhotoFilter, imgFilter};
+export {renderPhotoFilter, imageFilter};

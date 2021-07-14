@@ -3,6 +3,7 @@ function stringLengthValidation(string, maxLength) {
   return string.length >= maxLength;
 }
 
+//esc
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 // Fisher-Yates algorithm
@@ -13,6 +14,7 @@ const shuffle = (items) => {
   }
 };
 
+//sorting
 const sortByField = (field) => (a, b) => a[field] > b[field] ? 1 : -1;
 
 export {stringLengthValidation, isEscEvent, shuffle, sortByField};

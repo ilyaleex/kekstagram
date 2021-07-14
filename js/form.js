@@ -4,11 +4,11 @@ import {effectSlider} from './effects.js';
 import {imgPreview, setImgScale} from './scale.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
-const imgEditing = document.querySelector('.img-upload__overlay');
+const imageEditing = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
-const cancelUpload = imgEditing.querySelector('#upload-cancel');
-const hashtagsInput = imgEditing.querySelector('.text__hashtags');
-const descriptionInput = imgEditing.querySelector('.text__description');
+const cancelUpload = imageEditing.querySelector('#upload-cancel');
+const hashtagsInput = imageEditing.querySelector('.text__hashtags');
+const descriptionInput = imageEditing.querySelector('.text__description');
 
 const popupEscKeydownHandler = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
@@ -21,7 +21,7 @@ const popupEscKeydownHandler = (evt) => {
 
 function closeUploadForm () {
   uploadForm.reset();
-  imgEditing.classList.add('hidden');
+  imageEditing.classList.add('hidden');
   document.body.classList.remove('modal-open');
   imgPreview.style.filter = 'none';
   effectSlider.classList.add('hidden');
@@ -32,7 +32,7 @@ function closeUploadForm () {
 }
 
 function openUploadForm () {
-  imgEditing.classList.remove('hidden');
+  imageEditing.classList.remove('hidden');
   document.body.classList.add('modal-open');
 }
 
