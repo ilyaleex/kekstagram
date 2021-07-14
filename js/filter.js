@@ -13,8 +13,20 @@ const imgFilterDefault = imgFilter.querySelector('#filter-default');
 const imgFilterRandom = imgFilter.querySelector('#filter-random');
 const imgFilterDiscussed = imgFilter.querySelector('#filter-discussed');
 
+
+// function deactivateButtons() {
+//   Array.from(filterButtons).forEach((button) => {
+//     button.classList.remove('img-filters__button--active');
+//   });
+// }
+
+// function activateButton (button) {
+//   button.classList.add('img-filters__button--active');
+// }
+
+
 const applyFilterImages = (filterButton) => {
-  imgFilterButtons.forEach((imgFilterButton) => {
+  Array.from(imgFilterButtons).forEach((imgFilterButton) => {
     imgFilterButton.classList.remove('img-filters__button--active');
   });
   filterButton.classList.add('img-filters__button--active');

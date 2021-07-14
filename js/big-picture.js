@@ -1,6 +1,5 @@
-/* eslint-disable id-length */
 import {pictures} from './thumbnails.js';
-import {closeUploadForm, popupEscKeydownHandler} from './form.js';
+import {isEscEvent} from './util.js';
 
 const COMMENTS_STEP = 5;
 
@@ -14,7 +13,21 @@ const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const commentsList = bigPicture.querySelector('.social__comments');
+const userComment = bigPicture.querySelector('.social__footer-text');
 const commentFragment = document.createDocumentFragment();
+
+function closePhoto () {
+  bigPicture.classList.add('hidden');
+  userComment.value = '';
+  document.body.classList.remove('modal-open');
+}
+
+const popupEscKeydownHandler = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    closePhoto();
+  }
+};
 
 const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}) => {
   const onPictureClick = (evt) => {
@@ -48,7 +61,7 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
       commentsList.appendChild(commentFragment);
     };
     let commentsCounter = 0;
-    let commentsCounterInex = 5;
+    let commentsCounterInex = COMMENTS_STEP;
 
     const slicedComments = comments.slice(commentsCounter, commentsCounterInex);
     addCommentsToList(slicedComments);
@@ -76,9 +89,8 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
       socialCommentCount.classList.add('hidden');
       commentsLoader.classList.add('hidden');
     }
-
     document.addEventListener('keydown', popupEscKeydownHandler);
-    closeButton.addEventListener('click', closeUploadForm);
+    closeButton.addEventListener('click', closePhoto);
   };
 
   photoItem.addEventListener('click', onPictureClick);
@@ -87,9 +99,10 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
 const addPostsComments = (userPhotoList) => {
   const photos = pictures.querySelectorAll('.picture');
 
+  // eslint-disable-next-line id-length
   photos.forEach((photo, i) => {
     addPhotoListClickHandler(photo, userPhotoList[i]);
   });
 };
 
-export {addPostsComments, closeButton};
+export {addPostsComments};
