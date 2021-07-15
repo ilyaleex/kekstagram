@@ -12,10 +12,12 @@ const imageFilterButtons = imageFilter.querySelectorAll('.img-filters__button');
 const imageFilterDefault = imageFilter.querySelector('#filter-default');
 const imageFilterRandom = imageFilter.querySelector('#filter-random');
 const imageFilterDiscussed = imageFilter.querySelector('#filter-discussed');
+// const imageFilterButtonActive = imageFilter.querySelector('.img-filters__button--active');
 
-const applyFilterImages = (filterButton) => {
-  Array.from(imageFilterButtons).forEach((imgFilterButton) => {
-    imgFilterButton.classList.remove('img-filters__button--active');
+/*не работает*/
+const applyImageFilter = (filterButton) => {
+  imageFilterButtons.querySelector('.img-filters__button--active')((imageFilterButton) => {
+    imageFilterButton.classList.remove('img-filters__button--active');
   });
   filterButton.classList.add('img-filters__button--active');
 };
@@ -36,14 +38,14 @@ const renderFilteredPhotoList = (debounce(
 
 const renderPhotoFilter = (userPhotos) => {
   imageFilterDefault.addEventListener('click', () => {
-    applyFilterImages(imageFilterDefault);
+    applyImageFilter(imageFilterDefault);
     const defaultOrderPhotos = userPhotos.sort(sortByField('id'));
 
     renderFilteredPhotoList(defaultOrderPhotos);
   });
 
   imageFilterRandom.addEventListener('click', () => {
-    applyFilterImages(imageFilterRandom);
+    applyImageFilter(imageFilterRandom);
 
     shuffle(userPhotos);
     const slicedRandomPhotos = userPhotos.slice(0, RANDOM_PHOTOS_LENGTH);
@@ -52,9 +54,9 @@ const renderPhotoFilter = (userPhotos) => {
   });
 
   imageFilterDiscussed.addEventListener('click', () => {
-    applyFilterImages(imageFilterDiscussed);
-    const disscusedOrderPhotosReverce = userPhotos.sort(sortByField('comments'));
-    const disscusedOrderPhotos = disscusedOrderPhotosReverce.reverse();
+    applyImageFilter(imageFilterDiscussed);
+    const disscusedOrderPhotosReverse = userPhotos.sort(sortByField('comments'));
+    const disscusedOrderPhotos = disscusedOrderPhotosReverse.reverse();
 
     renderFilteredPhotoList(disscusedOrderPhotos);
   });
