@@ -12,11 +12,9 @@ const imageFilterButtons = imageFilter.querySelectorAll('.img-filters__button');
 const imageFilterDefault = imageFilter.querySelector('#filter-default');
 const imageFilterRandom = imageFilter.querySelector('#filter-random');
 const imageFilterDiscussed = imageFilter.querySelector('#filter-discussed');
-// const imageFilterButtonActive = imageFilter.querySelector('.img-filters__button--active');
 
-/*не работает*/
 const applyImageFilter = (filterButton) => {
-  imageFilterButtons.querySelector('.img-filters__button--active')((imageFilterButton) => {
+  imageFilterButtons.forEach((imageFilterButton) => {
     imageFilterButton.classList.remove('img-filters__button--active');
   });
   filterButton.classList.add('img-filters__button--active');

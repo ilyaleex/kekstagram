@@ -10,3 +10,4 @@ import './api.js';
 import './form-error.js';
 import './success-form.js';
 import './post-form.js';
+import './upload-image.js';
