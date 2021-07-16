@@ -14,9 +14,7 @@ const imageFilterRandom = imageFilter.querySelector('#filter-random');
 const imageFilterDiscussed = imageFilter.querySelector('#filter-discussed');
 
 const applyImageFilter = (filterButton) => {
-  imageFilterButtons.forEach((imageFilterButton) => {
-    imageFilterButton.classList.remove('img-filters__button--active');
-  });
+  imageFilterButtons.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
   filterButton.classList.add('img-filters__button--active');
 };
 
