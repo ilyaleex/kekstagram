@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 // Функция взята из интернета и доработана
 // Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_throttle
 
@@ -16,7 +17,7 @@ function throttle (callback, delayBetweenFrames) {
     // вызываем наш колбэк и перезаписываем lastTime
     // временем "последнего кадра"
     if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest)
+      callback.apply(this, rest);
       lastTime = now;
     }
   };

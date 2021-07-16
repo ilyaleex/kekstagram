@@ -12,7 +12,7 @@ hashtagsInput.addEventListener('input', () => {
         hashtagsInput.style.borderColor = 'red';
       } else if (hashtags.length !== hashtagsSet.size) {
         hashtagsInput.setCustomValidity('Хэштеги не должны повторяться');
-        hashtagsInput.style.borderColor = 'red'; //не работает
+        hashtagsInput.style.borderColor = 'red';
       } else {
         hashtagsInput.setCustomValidity('');
         hashtagsInput.style.borderColor = '';
@@ -21,6 +21,7 @@ hashtagsInput.addEventListener('input', () => {
     });
     if (hashtags.length > MAX_HASHTAGS_AMOUNT) {
       hashtagsInput.setCustomValidity(`Количество хэштегов не может быть больше ${MAX_HASHTAGS_AMOUNT}`);
+      hashtagsInput.style.borderColor = 'red';
     }
   } else {
     hashtagsInput.setCustomValidity('');
