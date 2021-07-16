@@ -8,7 +8,7 @@ const RANDOM_PHOTOS_LENGTH = 10;
 
 const picturesContainer = document.querySelector('.pictures');
 const imageFilter = document.querySelector('.img-filters');
-const imageFilterButtons = imageFilter.querySelectorAll('.img-filters__button');
+const imageFilterButtons = imageFilter.querySelector('.img-filters__form');
 const imageFilterDefault = imageFilter.querySelector('#filter-default');
 const imageFilterRandom = imageFilter.querySelector('#filter-random');
 const imageFilterDiscussed = imageFilter.querySelector('#filter-discussed');
