@@ -2,6 +2,7 @@ import {pictures} from './thumbnails.js';
 import {isEscEvent} from './util.js';
 
 const COMMENTS_STEP = 5;
+const PICTURE_SIZE = 35;
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -22,7 +23,7 @@ function closePhoto () {
   document.body.classList.remove('modal-open');
 }
 
-const popupEscKeydownHandler = (evt) => {
+const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closePhoto();
@@ -50,8 +51,8 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
         commentText.classList.add('social__text');
         commentPicture.src = avatar;
         commentPicture.alt = name;
-        commentPicture.width = 35;
-        commentPicture.height = 35;
+        commentPicture.width = PICTURE_SIZE;
+        commentPicture.height = PICTURE_SIZE;
         commentText.textContent = message;
         commentBlock.appendChild(commentPicture);
         commentBlock.appendChild(commentText);
@@ -89,7 +90,7 @@ const addPhotoListClickHandler = (photoItem, {url, likes, comments, description}
       socialCommentCount.classList.add('hidden');
       commentsLoader.classList.add('hidden');
     }
-    document.addEventListener('keydown', popupEscKeydownHandler);
+    document.addEventListener('keydown', onPopupEscKeydown);
     bigPictureClose.addEventListener('click', closePhoto);
   };
 

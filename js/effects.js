@@ -1,3 +1,7 @@
+const MAX_EFFECT_VALUE = 100;
+const EFFECT_STEP_VALUE = 1;
+const MIN_EFFECT_VALUE = 0;
+
 const imgPreview = document.querySelector('.img-upload__preview');
 const imgPreviewPic = imgPreview.querySelector('img');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -11,19 +15,14 @@ const effectClasses = imgPreviewPic.className.split(' ').filter((effectClass) =>
 
 noUiSlider.create(effectLevelSlider, {
   range: {
-    min: 0,
-    max: 100,
+    min: MIN_EFFECT_VALUE,
+    max: MAX_EFFECT_VALUE,
   },
-  start: 100,
-  step: 1,
+  start: MAX_EFFECT_VALUE,
+  step: EFFECT_STEP_VALUE,
   connect: 'lower',
   format: {
-    to: (value) => {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
+    to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
     from: (value) => parseFloat(value),
   },
 });
@@ -74,12 +73,12 @@ const setEffect = (effect) => {
   }
 };
 
-const setEffectHandler = (evt) => {
+const onSetEffect = (evt) => {
   if (evt.target.matches('.effects__radio')) {
     setEffect(evt.target.value);
   }
 };
 
-effectsList.addEventListener('change', setEffectHandler);
+effectsList.addEventListener('change', onSetEffect);
 
 export {imgPreviewPic, effectSlider};

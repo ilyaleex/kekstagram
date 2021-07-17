@@ -10,7 +10,7 @@ const cancelUpload = imageEditing.querySelector('#upload-cancel');
 const hashtagsInput = imageEditing.querySelector('.text__hashtags');
 const descriptionInput = imageEditing.querySelector('.text__description');
 
-const popupEscKeydownHandler = (evt) => {
+const onPopupEscKeydown = (evt) => {
   if (hashtagsInput !== document.activeElement && descriptionInput !== document.activeElement) {
     if (isEscEvent(evt)) {
       evt.preventDefault();
@@ -28,7 +28,7 @@ function closeUploadForm () {
   descriptionInput.style.borderColor = '';
   hashtagsInput.style.borderColor = '';
   setImgScale(100);
-  document.removeEventListener('keydown', popupEscKeydownHandler);
+  document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
 function openUploadForm () {
@@ -38,7 +38,7 @@ function openUploadForm () {
 
 uploadFile.addEventListener('change', () => {
   openUploadForm();
-  document.addEventListener('keydown', popupEscKeydownHandler);
+  document.addEventListener('keydown', onPopupEscKeydown);
 });
 
 cancelUpload.addEventListener('click', () => {
@@ -128,4 +128,4 @@ const closeErrorMessageModal = () => {
   errorModal.addEventListener('click', onModalErrorOutsideClick);
 };
 
-export {closeUploadForm, closeSuccessMessageModal, closeErrorMessageModal, popupEscKeydownHandler};
+export {closeUploadForm, closeSuccessMessageModal, closeErrorMessageModal, onPopupEscKeydown};

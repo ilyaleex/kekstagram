@@ -12,21 +12,21 @@ const setImgScale = (newScale) => {
   currentScale = newScale;
 };
 
-const scaleSmallerHandler = () => {
+const onScaleSmaller = () => {
   if (currentScale > SCALE_STEP) {
     currentScale -= SCALE_STEP;
     setImgScale(currentScale);
   }
 };
 
-const scaleBiggerHandler = () => {
+const onScaleBigger = () => {
   if (currentScale < 100) {
     currentScale += SCALE_STEP;
     setImgScale(currentScale);
   }
 };
 
-scaleSmaller.addEventListener('click', scaleSmallerHandler);
-scaleBigger.addEventListener('click', scaleBiggerHandler);
+scaleSmaller.addEventListener('click', onScaleSmaller);
+scaleBigger.addEventListener('click', onScaleBigger);
 
 export {imgPreview, setImgScale};
