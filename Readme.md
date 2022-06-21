@@ -1,6 +1,6 @@
 # Личный проект «Кекстаграм»
 
-* Студент: Илья Ли (https://up.htmlacademy.ru/javascript/23/user/1606793).
+* Студент: [Илья Ли](https://up.htmlacademy.ru/javascript/23/user/1606793).
 * Наставник: Магомед Кандаев.
 
 ---
